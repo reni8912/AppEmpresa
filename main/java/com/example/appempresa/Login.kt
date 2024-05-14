@@ -2,6 +2,7 @@ package com.example.appempresa
 
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -37,6 +38,35 @@ class Login : ComponentActivity() {
         }
     }
 }
+fun login(context: Context, email: String, password: String) {
+    val url = "http://192.168.1.148:9080/user/login"
+
+    val jsonObject = JSONObject()
+    jsonObject.put("email", email)
+    jsonObject.put("password", password)
+
+    val request = JsonObjectRequest(
+        Request.Method.POST, url, jsonObject,
+        { response ->
+            if (response.has("id") && response.has("nombre")) {
+                val id = response.getString("id")
+                val nombre = response.getString("nombre")
+                val intent = Intent(context, AñadirTarea::class.java)
+                intent.putExtra("id", id)
+                intent.putExtra("nombre", nombre)
+                context.startActivity(intent)
+            } else {
+                Toast.makeText(context, "No 'id' field found in JSON response", Toast.LENGTH_SHORT).show()
+            }
+        },
+        { error ->
+            Toast.makeText(context, "Error: ${error.message}", Toast.LENGTH_SHORT).show()
+        }
+    )
+
+    val requestQueue = Volley.newRequestQueue(context)
+    requestQueue.add(request)
+}
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -69,37 +99,7 @@ fun LoginScreen() {
                 )
                 Spacer(modifier = Modifier.height(16.dp))
 
-
-                Button(onClick = {
-                    val q = Volley.newRequestQueue(context)
-                    val url = "http://127.0.0.1:9080/user/login"
-
-                    val jsonObject = JSONObject()
-                    jsonObject.put("email", email)
-                    jsonObject.put("password", password)
-
-                    val request = JsonObjectRequest(
-                        Request.Method.POST, url, jsonObject,
-                        { response ->
-                            if (response.has("id") && response.has("nombre")) {
-                                val id = response.getString("id")
-                                val nombre = response.getString("nombre")
-                                val intent = Intent(context, AñadirTarea::class.java)
-                                // Puedes pasar datos adicionales al intent si es necesario
-                                intent.putExtra("id", id)
-                                intent.putExtra("nombre", nombre)
-                                context.startActivity(intent)
-                            } else {
-                                Toast.makeText(context, "No 'id' field found in JSON response", Toast.LENGTH_SHORT).show()
-                            }
-                        },
-                        { error ->
-                            Toast.makeText(context, "Error: ${error.message}", Toast.LENGTH_SHORT).show()
-                        }
-                    )
-
-                    q.add(request)
-                }) {
+                Button(onClick = { login(context, email, password) }) {
                     Text("Login")
                 }
                 Text(
@@ -121,8 +121,6 @@ fun LoginScreen() {
         }
     )
 }
-
-
 
 @Preview(showBackground = true)
 @Composable
