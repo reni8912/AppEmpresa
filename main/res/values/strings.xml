@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AppEmpresa</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="AñadirTarea">OtraActivity</string>
+    <string name="button">Button</string>
+    <string name="title_activity_error">ErrorActivity</string>
+    <string name="title_activity_register">Register</string>
+    <string name="Login" />
+</resources>
