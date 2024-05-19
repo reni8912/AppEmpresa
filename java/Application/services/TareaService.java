@@ -17,7 +17,24 @@ public class TareaService {
     private TareaRepository tareaRepository;
 
     @Transactional
-    public int addNewTarea(int idUser, String descripcion) {
-        return tareaRepository.newTarea(idUser, descripcion);
+    public int addNewTarea(int id_user, String descripcion) {
+        return tareaRepository.newTarea(id_user, descripcion);
+    }
+    
+    @Transactional
+    public int cambiarDescripcionTarea(int id_user, String descripcion) {
+        return tareaRepository.updateTareaDescripcion(id_user, descripcion);
+    }
+    
+    @Transactional
+    public List<Tarea> getTareasByUser(int id_user) {
+        return tareaRepository.TareafindByUserId(id_user);
+    }
+    @Transactional
+    public int deleteTareaById(int id) {
+        return tareaRepository.deleteTareaById(id);
     }
 }
+
+    
+

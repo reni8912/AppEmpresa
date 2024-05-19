@@ -10,32 +10,47 @@ import jakarta.persistence.Table;
 @Table
 public class Tarea {
 
-	@Id
-	private int idTarea;
+    @Id
+    private int id;
+
     @ManyToOne
-    @JoinColumn(name = "idUser")  
-    private User idUser;
+    @JoinColumn(name = "id_user")  
+    private User id_user;
     
-	private String Descripcion;
-	public int getIdTarea() {
-		return idTarea;
-	}
-	public void setIdTarea(int idTarea) {
-		this.idTarea = idTarea;
-	}
-	public User getIdUser() {
-		return idUser;
-	}
-	public void setIdUser(User idUser) {
-		this.idUser = idUser;
-	}
-	public String getDescripcion() {
-		return Descripcion;
-	}
-	public void setDescripcion(String descripcion) {
-		Descripcion = descripcion;
-	}
-	
-	
-	
+    private String Descripcion;
+
+    public int getIdTarea() {
+        return id;
+    }
+
+    public void setIdTarea(int id) {
+        this.id = id;
+    }
+
+    public User getIdUser() {
+        return id_user;
+    }
+
+    public void setIdUser(User id_user) {
+        this.id_user = id_user;
+    }
+
+    public String getDescripcion() {
+        return Descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        Descripcion = descripcion;
+    }
+
+    public Tarea(int id, User id_user, String descripcion) {
+        this.id = id;
+        this.id_user = id_user;
+        Descripcion = descripcion;
+    }
+    
+    public Tarea() {
+
+    }
 }
+

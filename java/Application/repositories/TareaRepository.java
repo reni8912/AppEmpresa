@@ -16,6 +16,17 @@ import jakarta.transaction.Transactional;
 public interface TareaRepository extends CrudRepository<Tarea, Integer> {
 
     @Modifying
-    @Query(value = "INSERT INTO Tarea (idUser, descripcion) VALUES (:idUser, :descripcion)", nativeQuery = true)
-    int newTarea(@Param("idUser") int idUser, @Param("descripcion") String descripcion);
+    @Query(value = "INSERT INTO Tarea (id_user, descripcion) VALUES (:id_user, :descripcion)", nativeQuery = true)
+    int newTarea(@Param("id_user") int id_user, @Param("descripcion") String descripcion);
+
+    @Modifying
+    @Query(value = "UPDATE Tarea SET descripcion = :descripcion WHERE id_user = :id_user", nativeQuery = true)
+    int updateTareaDescripcion(@Param("id_user") int id_user, @Param("descripcion") String descripcion);
+
+    @Query(value = "SELECT * FROM Tarea WHERE id_user = :id_user", nativeQuery = true)
+    List<Tarea> TareafindByUserId(@Param("id_user") int id_user);
+
+    @Modifying
+    @Query(value = "DELETE FROM Tarea WHERE id = :id", nativeQuery = true)
+    int deleteTareaById(@Param("id") int id);
 }
