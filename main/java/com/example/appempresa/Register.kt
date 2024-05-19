@@ -109,7 +109,7 @@ fun RegisterScreen() {
 }
 
 fun registrarUsuario(context: Context, nombre: String, email: String, password: String) {
-    val url = "http://127.0.0.1:9080/main/userregister"
+    val url = "http://IP:9080/main/userregister"
 
     val requestQueue = Volley.newRequestQueue(context)
 

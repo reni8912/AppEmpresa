@@ -39,7 +39,7 @@ class Login : ComponentActivity() {
     }
 }
 fun login(context: Context, email: String, password: String) {
-    val url = "http://127.0.0.1:9080/user/login"
+    val url = "http://IP:9080/user/login"
 
     val jsonObject = JSONObject()
     jsonObject.put("email", email)
